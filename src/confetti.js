@@ -20,12 +20,12 @@ const particleColors = {
     "SteelBlue",
     "SandyBrown",
     "Chocolate",
-    "Crimson"
+    "Crimson",
   ],
   colorIndex: 0,
   colorIncrementer: 0,
   colorThreshold: 10,
-  getColor: function() {
+  getColor: function () {
     if (this.colorIncrementer >= 10) {
       this.colorIncrementer = 0;
       this.colorIndex++;
@@ -35,7 +35,7 @@ const particleColors = {
     }
     this.colorIncrementer++;
     return this.colorOptions[this.colorIndex];
-  }
+  },
 };
 
 function confettiParticle(color) {
@@ -48,7 +48,7 @@ function confettiParticle(color) {
   this.tiltAngleIncremental = Math.random() * 0.07 + 0.05;
   this.tiltAngle = 0;
 
-  this.draw = function() {
+  this.draw = function () {
     ctx.beginPath();
     ctx.lineWidth = this.r / 2;
     ctx.strokeStyle = this.color;
@@ -58,14 +58,14 @@ function confettiParticle(color) {
   };
 }
 
-const requestAnimFrame = (function() {
+const requestAnimFrame = (function () {
   return (
     window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     window.mozRequestAnimationFrame ||
     window.oRequestAnimationFrame ||
     window.msRequestAnimationFrame ||
-    function(callback) {
+    function (callback) {
       return window.setTimeout(callback, 1000 / 60);
     }
   );
@@ -144,5 +144,5 @@ export default {
       requestAnimFrame(animloop);
       return draw();
     })();
-  }
+  },
 };
