@@ -132,10 +132,6 @@ const Main = (props) => {
                     {formatAmount.format(props.debt)} /{" "}
                     {formatAmount.format(props.Line)}
                   </h3>
-                  <h4 className="subtitle is-size-3">
-                    {t("daistats.total_token", { token: "Dai" })}
-                  </h4>
-                  <HistoricalDebtChart data={props.historicalDebt} />
                 </div>
               </div>
             </div>

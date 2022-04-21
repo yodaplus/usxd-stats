@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { translate } from "react-polyglot";
 import { HashRouter as Router, Switch, Link, Route } from "react-router-dom";
-import { gql, GraphQLClient } from "graphql-request";
 import "./App.css";
 import eth from "./web3";
 import Main from "./Main";
@@ -18,7 +17,7 @@ add["CHIEF"] = "0x0a3f6849f78076aefaDf113F5BED87720274dDC0";
 add["GEM_PIT"] = "0x69076e44a9C70a67D5b79d95795Aba299083c275";
 add["UNISWAP_DAI"] = "0xa478c2975ab1ea89e8196811f51a7b7ade33eb11";
 add["UNISWAP_MKR"] = "0x2C4Bd064b998838076fa341A83d007FC2FA50957";
-add["MULTICALL"] = "0xcA11bde05977b3631167028862bE2a173976CA11";
+add["MULTICALL"] = "0x04824d3977998782867cC96877067e2fab9c8ebe";
 add["CHAI"] = "0x06AF07097C9Eeb7fD685c692751D5C66dB49c215";
 add["BKR"] = "0x0ff5E7B1a54387458F4dD2F04CDdA7D1246C34D9";
 add["OPTIMISTIC_DAI"] = "0xda10009cbd5d07dd0cecc66161fc93d7c9000da1";
@@ -123,21 +122,8 @@ const reverseAddresses = Object.entries(add).reduce(
   {}
 );
 
-let provider;
-let networkId;
-if (typeof window.ethereum !== "undefined") {
-  networkId = parseInt(window.ethereum.chainId);
-  window.ethereum.autoRefreshOnNetworkChange = false;
-  if (networkId === 1) {
-    provider = new ethers.providers.Web3Provider(window.ethereum);
-  }
-}
 const build = (address, name) => {
-  return new ethers.Contract(
-    address,
-    require(`./abi/${name}.json`),
-    provider ? provider : eth
-  );
+  return new ethers.Contract(address, require(`./abi/${name}.json`), eth);
 };
 
 const multi = build(add.MULTICALL, "Multicall");
@@ -312,11 +298,6 @@ const HOP = 3600; // assumes all OSM's have same hop
 
 const VEST_DAI_IDS = 37;
 const VEST_MKR_TREASURY_IDS = 22;
-
-const subgraphClient = new GraphQLClient(
-  "https://api.thegraph.com/subgraphs/name/protofire/maker-protocol",
-  { mode: "cors" }
-);
 
 class App extends Component {
   state = {
@@ -840,10 +821,6 @@ class App extends Component {
       this.getPrice(add.PIP_WSTETH, this.POSITION_UNIV2_NXT), //FIXME
       this.getPrice(add.MEDIAN_WSTETH, this.POSITION_MEDIAN_VAL),
       this.getPrice(add.PIP_CRVV1ETHSTETH, this.POSITION_UNIV2_NXT), //FIXME
-      this.getHistoricalDebt({
-        blockInterval: 5700 /* ≈ 1 day */,
-        periods: 240 /* 8 months */,
-      }),
     ];
 
     let [
@@ -892,7 +869,6 @@ class App extends Component {
       wstethPriceNxt,
       wstethPriceMedian,
       crvv1ethstethPriceNext,
-      historicalDebt,
     ] = await Promise.all(promises);
 
     var offset = 0;
@@ -1658,7 +1634,6 @@ class App extends Component {
 
     this.setState((state) => {
       return {
-        networkId: networkId,
         blockNumber: block.toString(),
         timestamp: this.unixToDateTime(timestamp),
         timestampHHMM: this.unixToTime(timestamp),
@@ -1757,7 +1732,6 @@ class App extends Component {
           lerpHumpCurrent.sub(surplusBuffer),
           45
         ),
-        historicalDebt,
       };
     });
   };
@@ -2316,54 +2290,6 @@ class App extends Component {
     return mkrAnnualBurn;
   };
 
-  getHistoricalDebt = async ({ blockInterval, periods }) => {
-    try {
-      const latestBlock = await (provider ?? eth).getBlockNumber();
-
-      if (latestBlock) {
-        const numberOfPoints = periods ?? latestBlock / blockInterval;
-
-        if (numberOfPoints > 0) {
-          const result = new Array(numberOfPoints);
-
-          const fragments = Array.from({ length: numberOfPoints }, (v, i) => {
-            const block = latestBlock - (i + 1) * blockInterval;
-
-            return `
-            _${
-              numberOfPoints - i
-            }_${block}: systemState(block: { number: ${block}}, id: "current") {
-              block
-              timestamp
-              totalDebt
-              debtCeiling: totalDebtCeiling
-            }
-          `;
-          });
-
-          const data = await subgraphClient.request(
-            gql`{${fragments.concat()}}`
-          );
-
-          Object.entries(data).forEach(([key, value]) => {
-            const [, index, block] = key.split("_");
-
-            result[+index - 1] = { block: +block, ...value };
-          });
-
-          return result;
-        }
-      }
-    } catch (err) {
-      console.error(
-        "Historical debt could not be obtained due to an error.",
-        err
-      );
-    }
-
-    return null;
-  };
-
   render() {
     const t = this.props.t;
     if (this.isLoaded()) {
@@ -2527,22 +2453,5 @@ class App extends Component {
     }
   }
 }
-
-const NavBar = () => {
-  return (
-    <nav className="navbar" role="navigation" aria-label="main navigation">
-      <div className="container">
-        <div className="navbar-brand">
-          <Link className="navbar-item" to="/">
-            Home
-          </Link>
-          <Link className="navbar-item" to="/dai">
-            What's the total supply of Dai?
-          </Link>
-        </div>
-      </div>
-    </nav>
-  );
-};
 
 export default translate()(App);
