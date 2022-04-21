@@ -7,7 +7,6 @@ import eth from "./web3";
 import Main from "./Main";
 import Dai from "./Dai";
 import daiLogo from "./dai-pixel.png";
-// import confetti from './confetti'
 
 const ethers = require("ethers");
 const utils = ethers.utils;
@@ -1656,8 +1655,6 @@ class App extends Component {
       lerpHumpDuration,
       timestamp[0]
     );
-
-    // if (parseInt(utils.formatUnits(res[1], 45)) >= 300000000) confetti.rain()
 
     this.setState((state) => {
       return {
