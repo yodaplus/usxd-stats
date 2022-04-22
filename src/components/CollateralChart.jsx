@@ -44,8 +44,6 @@ const COLORS_DARK = [
 const CollateralChart = ({ ilks, debt, useValue, groupBy }) => {
   const t = patchT(useTranslate());
 
-  console.log(ilks);
-
   const locale = useMemo(() => t._polyglot.currentLocale, [t]);
 
   const formatPercent = useMemo(

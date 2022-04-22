@@ -1,67 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="stylesheet" href="%PUBLIC_URL%/bulma.min.css" />
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png">
-  <link rel="stylesheet" href="%PUBLIC_URL%/bulma.min.css">
-  <meta name="theme-color" content="#000000" />
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>USXD Stats</title>
+    <meta
+      name="description"
+      content="USXD statistics live from the Xinfin blockchain."
+    />
+  </head>
 
-  <title>Dai Stats</title>
-  <meta name="description" content="Dai statistics live from the Ethereum blockchain.">
-
-  <!-- Google / Search Engine Tags -->
-  <meta itemprop="name" content="Dai Stats">
-  <meta itemprop="description" content="Dai statistics live from the Ethereum blockchain.">
-  <meta itemprop="image" content="https://daistats.com/dai-pixel.png">
-
-  <!-- Facebook Meta Tags -->
-  <meta property="og:url" content="https://daistats.com">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Dai Stats">
-  <meta property="og:description" content="Dai statistics live from the Ethereum blockchain.">
-  <meta property="og:image" content="https://daistats.com/dai-pixel.png">
-
-  <!-- Twitter Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Dai Stats">
-  <meta name="twitter:creator" content="@nanexcool" />
-  <meta name="twitter:site" content="@nanexcool" />
-  <meta name="twitter:description" content="Dai numbers at a glance">
-  <meta name="twitter:image" content="https://daistats.com/dai-pixel.png">
-</head>
-
-<body>
-  <noscript>You need to enable JavaScript to run this dapp.</noscript>
-  <canvas id="canvas" style="position: fixed; pointer-events: none;"></canvas>
-  <div class="clock is-centered" style="margin:0 auto; width:650px"></div>
-  <div id="root"></div>
-  <footer class="footer">
-    <div class="content has-text-centered">
-      <p>
-        Made by <a class="" href="https://twitter.com/nanexcool" target="_blank" rel="noopener noreferrer">
-          @nanexcool
-        </a> who loves numbers and loves you
-      </p>
-      <p>With many amazing PRs from <a class="" href="https://twitter.com/iamchrissmith" target="_blank" rel="noopener noreferrer">@iamchrissmith</a> and <a class="" href="https://twitter.com/brianmcmichael" target="_blank" rel="noopener noreferrer">@brianmcmichael</a></p>
-      <p>Pixel art by <a class="" href="https://twitter.com/abbey_titcomb" target="_blank" rel="noopener noreferrer">@abbey_titcomb</a></p>
-      <p>Take a look at the <a class="" href="https://github.com/nanexcool/daistats" target="_blank" rel="noopener noreferrer">Source
-        code</a>
-      </p>
-      <p>
-        Translations by <a class="" href="https://defi18n.com" target="_blank" rel="noopener noreferrer">defi18n</a>. Try them out for your project!
-      </p>
-      <p>
-        This site uses <a href="https://daistats.goatcounter.com/" target="_blank" rel="noopener noreferrer">Goat Counter</a> for simple analytics. Stats are public!
-      </p>
-    </div>
-  </footer>
-  <script data-goatcounter="https://daistats.goatcounter.com/count"
-    async src="//gc.zgo.at/count.js"></script>
-</body>
-
+  <body>
+    <noscript>You need to enable JavaScript to run this dapp.</noscript>
+    <canvas id="canvas" style="position: fixed; pointer-events: none"></canvas>
+    <div class="clock is-centered" style="margin: 0 auto; width: 650px"></div>
+    <div id="root"></div>
+    <footer class="footer">
+      <div class="content has-text-centered"></div>
+    </footer>
+  </body>
 </html>
