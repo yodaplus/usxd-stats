@@ -13,22 +13,10 @@ const COLORS = [
 ];
 
 const ILK_TO_COLOUR = {
-  USDC: "hsl(171, 100%, 41%)",
-  "PSM-USDC-A": "hsl(171, 100%, 41%)",
-  GUNIV3DAIUSDC2: "hsl(171, 100%, 36%)",
-  "GUNIV3DAIUSDC2-A": "hsl(171, 100%, 36%)",
-  ETH: "hsl(217, 71%, 53%)",
-  "ETH-A": "hsl(217, 71%, 53%)",
-  "ETH-C": "hsl(48, 100%, 67%)",
-  WSTETH: "hsl(217, 71%, 43%)",
-  "WSTETH-A": "hsl(217, 71%, 43%)",
-  WBTC: "hsl(141, 71%, 48%)",
-  "WBTC-A": "hsl(141, 71%, 48%)",
-  "USDC-A": "hsl(204, 86%, 53%)",
-  USDP: "hsl(171, 100%, 29%)",
-  "PSM-USDP-A": "hsl(171, 100%, 29%)",
-  ADAI: "hsl(308, 34%, 51%)",
-  "DIRECT-AAVEV2-DAI": "hsl(308, 34%, 51%)",
+  XDC: "hsl(217, 71%, 53%)",
+  "XDC-A": "hsl(217, 71%, 53%)",
+  "XDC-B": "hsl(171, 100%, 29%)",
+  "XDC-C": "hsl(48, 100%, 67%)",
   Others: "hsl(348, 100%, 61%)",
 };
 
@@ -54,6 +42,8 @@ const COLORS_DARK = [
 
 const CollateralChart = ({ ilks, debt, useValue, groupBy }) => {
   const t = useTranslate();
+
+  console.log(ilks);
 
   const locale = useMemo(() => t._polyglot.currentLocale, [t]);
 
@@ -169,7 +159,7 @@ const CollateralChart = ({ ilks, debt, useValue, groupBy }) => {
             endAngle={410}
           >
             {data.map((entry, index) => (
-              <Cell fill={ILK_TO_COLOUR[entry.name]} />
+              <Cell key={index} fill={ILK_TO_COLOUR[entry.name]} />
             ))}
           </Pie>
           {useValue && <Tooltip formatter={tooltip} />}

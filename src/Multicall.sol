@@ -34,6 +34,28 @@ contract Multicall3 {
         bytes returnData;
     }
 
+    function uint2str(uint _i) internal pure returns (string memory _uintAsString) {
+        if (_i == 0) {
+            return "0";
+        }
+        uint j = _i;
+        uint len;
+        while (j != 0) {
+            len++;
+            j /= 10;
+        }
+        bytes memory bstr = new bytes(len);
+        uint k = len;
+        while (_i != 0) {
+            k = k-1;
+            uint8 temp = (48 + uint8(_i - _i / 10 * 10));
+            bytes1 b1 = bytes1(temp);
+            bstr[k] = b1;
+            _i /= 10;
+        }
+        return string(bstr);
+    }
+
     /// @notice Backwards-compatible call aggregation with Multicall
     /// @param calls An array of Call structs
     /// @return blockNumber The block number where the calls were executed
@@ -47,7 +69,7 @@ contract Multicall3 {
             bool success;
             call = calls[i];
             (success, returnData[i]) = call.target.call(call.callData);
-            require(success, "Multicall3: call failed");
+            require(success, string(abi.encodePacked("Multicall3: call failed ", uint2str(i))));
             unchecked { ++i; }
         }
     }

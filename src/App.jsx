@@ -14,7 +14,7 @@ const jsonFetch = (url) => fetch(url).then((res) => res.json());
 
 const add = require("./addresses.json");
 add["CHIEF"] = "0x4796dC3110bc1db8064910485b6c21451ff8f285";
-add["MULTICALL"] = "0x04824d3977998782867cC96877067e2fab9c8ebe";
+add["MULTICALL"] = "0x3B267bB45CCB28e2389e76b03507A39fbb5114b5";
 
 const reverseAddresses = Object.entries(add).reduce(
   (add, [key, value]) => ((add[value] = key), add),
@@ -80,8 +80,8 @@ const DP18 = ethers.BigNumber.from("1");
 
 const HOP = 3600; // assumes all OSM's have same hop
 
-const VEST_DAI_IDS = 37;
-const VEST_MKR_TREASURY_IDS = 22;
+const VEST_DAI_IDS = 0;
+const VEST_MKR_TREASURY_IDS = 0;
 
 class App extends Component {
   state = {
@@ -90,8 +90,7 @@ class App extends Component {
   };
 
   POSITION_NXT = 4;
-  POSITION_UNIV2_NXT = 4;
-  POSITION_MEDIAN_VAL = 1;
+  POSITION_MEDIAN_VAL = 2;
 
   componentDidMount() {
     this.all("latest");
@@ -148,8 +147,6 @@ class App extends Component {
         [add.MCD_FLAP, flap.interface.encodeFunctionData("ttl", [])],
         [add.MCD_FLAP, flap.interface.encodeFunctionData("tau", [])],
         [add.MCD_FLAP, flap.interface.encodeFunctionData("kicks", [])],
-        [add.MCD_FLAP, flap.interface.encodeFunctionData("lid", [])],
-        [add.MCD_FLAP, flap.interface.encodeFunctionData("fill", [])],
         [add.MCD_FLOP, flop.interface.encodeFunctionData("beg", [])],
         [add.MCD_FLOP, flop.interface.encodeFunctionData("pad", [])],
         [add.MCD_FLOP, flop.interface.encodeFunctionData("ttl", [])],
@@ -193,12 +190,12 @@ class App extends Component {
     );
     let promises = [
       p1,
-      this.etherscanEthSupply(),
-      this.getPrice(add.PIP_ETH, this.POSITION_NXT),
+      this.getXdcSupply(),
+      this.getPrice(add.PIP_XDC, this.POSITION_NXT),
       this.getPrice(add.VAL_XDC, this.POSITION_MEDIAN_VAL),
     ];
 
-    let [[block, res], ethSupply, ethPriceNxt, ethPriceMedian] =
+    let [[block, res], xdcSupply, xdcPriceNxt, xdcPriceMedian] =
       await Promise.all(promises);
 
     var offset = 0;
@@ -267,14 +264,6 @@ class App extends Component {
       "kicks",
       res[offset++]
     )[0];
-    const flapLid = flap.interface.decodeFunctionResult(
-      "lid",
-      res[offset++]
-    )[0];
-    const flapFill = flap.interface.decodeFunctionResult(
-      "fill",
-      res[offset++]
-    )[0];
     const flopBeg = flop.interface.decodeFunctionResult(
       "beg",
       res[offset++]
@@ -332,37 +321,37 @@ class App extends Component {
       this.getIlkMap(
         res,
         (offset += VEST_MKR_TREASURY_IDS * VEST_CALL_COUNT),
-        "ETH",
-        "ETH-A",
+        "XDC",
+        "XDC-A",
         wxdc,
         18,
         base,
-        ethPriceNxt,
-        ethPriceMedian,
+        xdcPriceNxt,
+        xdcPriceMedian,
         DP10
       ),
       this.getIlkMap(
         res,
         (offset += ILK_CALL_COUNT),
-        "ETH",
-        "ETH-B",
+        "XDC",
+        "XDC-B",
         wxdc,
         18,
         base,
-        ethPriceNxt,
-        ethPriceMedian,
+        xdcPriceNxt,
+        xdcPriceMedian,
         DP10
       ),
       this.getIlkMap(
         res,
         (offset += ILK_CALL_COUNT),
-        "ETH",
-        "ETH-C",
+        "XDC",
+        "XDC-C",
         wxdc,
         18,
         base,
-        ethPriceNxt,
-        ethPriceMedian,
+        xdcPriceNxt,
+        xdcPriceMedian,
         DP10
       ),
     ];
@@ -385,7 +374,7 @@ class App extends Component {
         vestingDai: vestingDai,
         vestingMkrTreasury: vestingMkrTreasury,
         daiSupply: utils.formatEther(daiSupply),
-        ethSupply: utils.formatEther(ethSupply),
+        xdcSupply: utils.formatEther(xdcSupply),
         sysSurplus: utils.formatUnits(vow_dai.sub(vow_sin), 45),
         sysDebt: utils.formatUnits(vow_sin.sub(sin).sub(ash), 45),
         sysDebtRaw: vow_sin.sub(sin).sub(ash).toString(),
@@ -404,8 +393,6 @@ class App extends Component {
         flapTtl: flapTtl,
         flapTau: flapTau,
         flapKicks: flapKicks.toNumber(),
-        flapLid: utils.formatUnits(flapLid, 45),
-        flapFill: utils.formatUnits(flapFill, 45),
         flopBeg: utils.formatUnits(flopBeg, 18),
         flopPad: utils.formatUnits(flopPad, 18),
         flopTtl: flopTtl,
@@ -676,11 +663,8 @@ class App extends Component {
     return this.calcFee(combo);
   };
 
-  etherscanEthSupply = async () => {
-    const json = await jsonFetch(
-      "https://api.etherscan.io/api?action=ethsupply&module=stats&apikey=N5TICDBVG4MHDS7CGPJ9MHXRYC1Y84963N"
-    );
-    return json.result;
+  getXdcSupply = async () => {
+    return 0;
   };
 
   getPrice = async (osm, position) => {
