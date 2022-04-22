@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 import { useTranslate } from "react-polyglot";
 import { ResponsiveContainer, Tooltip, PieChart, Pie, Cell } from "recharts";
+import { patchT } from "../utils";
 
 // from bluma
 const COLORS = [
@@ -41,7 +42,7 @@ const COLORS_DARK = [
 ];
 
 const CollateralChart = ({ ilks, debt, useValue, groupBy }) => {
-  const t = useTranslate();
+  const t = patchT(useTranslate());
 
   console.log(ilks);
 

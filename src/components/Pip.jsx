@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslate } from "react-polyglot";
+import { patchT } from "../utils";
 
 function nextPrice(price, priceNxt) {
   // hack to ignore small difference when comparing ray with wad
@@ -12,7 +13,7 @@ function nextPrice(price, priceNxt) {
 }
 
 function Pip(props) {
-  const t = useTranslate();
+  const t = patchT(useTranslate());
   const ilk = props.ilksByName[props.ilk];
   return (
     <div className="column">

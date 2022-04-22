@@ -4,7 +4,6 @@ import { HashRouter as Router, Switch, Link, Route } from "react-router-dom";
 import "./App.css";
 import eth from "./web3";
 import Main from "./Main";
-import Dai from "./Dai";
 import daiLogo from "./dai-pixel.png";
 
 const ethers = require("ethers");
@@ -814,9 +813,6 @@ class App extends Component {
             </div>
           </div>
           <Switch>
-            <Route path="/dai">
-              <Dai {...this.state} {...add} />
-            </Route>
             <Route path="/">
               <Main {...this.state} {...add} togglePause={this.togglePause} />
             </Route>
@@ -828,7 +824,7 @@ class App extends Component {
         <section className="section">
           <div className="container has-text-centered">
             <figure className="image is-128x128 container">
-              <img src={daiLogo} alt="Dai Logo" />
+              <img src={daiLogo} alt="USXD Logo" />
             </figure>
             <br />
             <progress className="progress is-small is-primary" max="100">

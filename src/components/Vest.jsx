@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslate } from "react-polyglot";
+import { patchT } from "../utils";
 
 const formatTwoDp = new Intl.NumberFormat("en-US", {
   style: "decimal",
@@ -8,7 +9,7 @@ const formatTwoDp = new Intl.NumberFormat("en-US", {
 });
 
 function Vest(props) {
-  const t = useTranslate();
+  const t = patchT(useTranslate());
   const award = props.award;
   if (props.heading) {
     return (

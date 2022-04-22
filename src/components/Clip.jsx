@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslate } from "react-polyglot";
+import { patchT } from "../utils";
 
 const formatAmount = new Intl.NumberFormat("en-US", {
   style: "decimal",
@@ -14,7 +15,7 @@ const formatPercent = new Intl.NumberFormat("en-US", {
 });
 
 function Clip(props) {
-  const t = useTranslate();
+  const t = patchT(useTranslate());
   if (props.heading) {
     return (
       <thead>

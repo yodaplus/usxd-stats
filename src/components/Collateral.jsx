@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslate } from "react-polyglot";
+import { patchT } from "../utils";
 
 const formatAmount = new Intl.NumberFormat("en-US", {
   style: "decimal",
@@ -52,7 +53,7 @@ function autoLine(props, label) {
 
 function Collateral(props) {
   var supply;
-  const t = useTranslate();
+  const t = patchT(useTranslate());
   const ilk = props.ilksByName[props.ilk];
   if (props.supply) {
     supply = props.supply;

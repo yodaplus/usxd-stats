@@ -8,9 +8,10 @@ import {
   Tooltip,
   XAxis,
 } from "recharts";
+import { patchT } from "../utils";
 
 const HistoricalDebtChart = ({ data }) => {
-  const t = useTranslate();
+  const t = patchT(useTranslate());
 
   const locale = useMemo(() => t._polyglot.currentLocale, [t]);
 
@@ -87,7 +88,7 @@ const HistoricalDebtChart = ({ data }) => {
       }
 
       if (name === "totalDebt") {
-        return [output, t("daistats.total_token", { token: "Dai" })];
+        return [output, t("daistats.total_token", { token: "USXD" })];
       }
 
       return output;

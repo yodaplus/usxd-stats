@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslate } from "react-polyglot";
+import { patchT } from "../utils";
 
 const formatAmount = new Intl.NumberFormat("en-US", {
   style: "decimal",
@@ -26,7 +27,7 @@ const formatPercentFee = new Intl.NumberFormat("en-US", {
 });
 
 function Psm(props) {
-  const t = useTranslate();
+  const t = patchT(useTranslate());
   const ilk = props.ilksByName[props.ilk];
   return (
     <div>
