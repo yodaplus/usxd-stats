@@ -22,7 +22,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "docker": "docker compose   -f infra/docker-compose.base.yml   -f infra/docker-compose.build.yml  --project-name usxd-stats-dev   --project-directory ./"
   },
   "eslintConfig": {
     "extends": "react-app"

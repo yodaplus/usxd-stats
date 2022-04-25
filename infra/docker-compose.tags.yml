@@ -1,0 +1,5 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: 135135176603.dkr.ecr.ap-south-1.amazonaws.com/usxd-stats:latest
