@@ -11,6 +11,7 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   REACT_APP_JSON_RPC_URL: https://rpc-apothem.xinfin.yodaplus.net
+  REACT_APP_NETWORK: "apothem"
   NODE_ENV: "production"
 
 jobs:
@@ -44,6 +45,7 @@ jobs:
           context: .
           build-args: |
             REACT_APP_JSON_RPC_URL=${{ env.REACT_APP_JSON_RPC_URL }}
+            REACT_APP_NETWORK=${{ env.REACT_APP_NETWORK }}
           file: docker/nginx/Dockerfile
           push: true
           tags: 135135176603.dkr.ecr.ap-south-1.amazonaws.com/usxd-stats:latest
@@ -74,6 +76,6 @@ jobs:
           135135176603.dkr.ecr.ap-south-1.amazonaws.com
       - name: Deploy to ECS
         run: >
-          docker compose -f infra/docker-compose.base.yml -f infra/docker-compose.tags.yml -f
-          infra/docker-compose.ecs.yml -f infra/docker-compose.ecs-staging.yml --project-name
-          usxd-stats --project-directory ./ up || true
+          docker compose -f infra/docker-compose.base.yml -f infra/docker-compose.tags-apothem.yml -f
+          infra/docker-compose.ecs.yml -f infra/docker-compose.ecs-apothem.yml --project-name
+          usxd-stats-apothem --project-directory ./ up || true

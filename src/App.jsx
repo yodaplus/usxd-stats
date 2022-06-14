@@ -4,16 +4,12 @@ import { HashRouter as Router, Switch, Link, Route } from "react-router-dom";
 import "./App.css";
 import eth from "./web3";
 import Main from "./Main";
-import daiLogo from "./dai-pixel.png";
+import add from "./addresses";
 
 const ethers = require("ethers");
 const utils = ethers.utils;
 
 const jsonFetch = (url) => fetch(url).then((res) => res.json());
-
-const add = require("./addresses.json");
-add["CHIEF"] = "0x4796dC3110bc1db8064910485b6c21451ff8f285";
-add["MULTICALL"] = "0x3B267bB45CCB28e2389e76b03507A39fbb5114b5";
 
 const reverseAddresses = Object.entries(add).reduce(
   (add, [key, value]) => ((add[value] = key), add),

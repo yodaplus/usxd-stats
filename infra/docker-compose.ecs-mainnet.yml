@@ -5,5 +5,5 @@ x-aws-cloudformation:
     NginxTCP443Listener:
       Properties:
         Certificates:
-          - CertificateArn: 'arn:aws:acm:ap-south-1:135135176603:certificate/08f3fab2-fdc7-44c2-8bba-9151cf1d759e'
+          - CertificateArn: 'arn:aws:acm:ap-south-1:135135176603:certificate/6e2d2b2f-bb4e-41c9-a799-069cef3805cc'
         Protocol: HTTPS
