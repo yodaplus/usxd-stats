@@ -44,12 +44,12 @@ const wxdc = build(add.XDC, "ERC20");
 const dai = build(add.MCD_DAI, "Dai");
 const mkr = build(add.MCD_GOV, "DSToken");
 const manager = build(add.CDP_MANAGER, "DssCdpManager");
-const clip = build(add.MCD_CLIP_ETH_A, "Clipper"); // FIXME are these all the same now?
+const clip = build(add.MCD_CLIP_XDC_A, "Clipper"); // FIXME are these all the same now?
 // NOTE one calc instance is shared between all ilks though each ilk has its own calc contract
-const calc = build(add.MCD_CLIP_CALC_ETH_A, "StairstepExponentialDecrease");
+const calc = build(add.MCD_CLIP_CALC_XDC_A, "StairstepExponentialDecrease");
 const flap = build(add.MCD_FLAP, "Flapper");
 const flop = build(add.MCD_FLOP, "Flopper");
-const pip = build(add.PIP_ETH, "OSM");
+const pip = build(add.PIP_XDC, "OSM");
 const xdcAIlkBytes = utils.formatBytes32String("XDC-A");
 const xdcBIlkBytes = utils.formatBytes32String("XDC-B");
 const xdcCIlkBytes = utils.formatBytes32String("XDC-C");
