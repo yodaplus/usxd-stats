@@ -10,8 +10,8 @@ env:
   AWS_DEFAULT_REGION: ap-south-1
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  REACT_APP_JSON_RPC_URL: https://rpc.xinfin.yodaplus.net
-  REACT_APP_NETWORK: "mainnet"
+  REACT_APP_JSON_RPC_URL: https://rpc-apothem.xinfin.yodaplus.net
+  REACT_APP_NETWORK: "apothem"
   NODE_ENV: "production"
 
 jobs:
